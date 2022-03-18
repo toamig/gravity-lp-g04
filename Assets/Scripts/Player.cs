@@ -27,23 +27,18 @@ public class Player : MonoBehaviour
     void Start()
     {
         Rigidbody2D rb2d = GetComponent<Rigidbody2D>();
-        _velocity = PlayerLaunchVector(0, 1);
-        _oldVelocity = _velocity;
+        rb2d.AddForce(PlayerLaunchVector(0, 50), ForceMode2D.Impulse);
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        _oldVelocity = _velocity;
-
+        Rigidbody2D rb2d = GetComponent<Rigidbody2D>();
         if (_inBlackHole)
         {
-            _velocity = HoleGravityVector(blackHole.transform.position, transform.position, bh.mass, mass);
+            rb2d.AddForce(HoleGravityVector(blackHole.transform.position, transform.position, bh.mass, mass), ForceMode2D.Impulse);
         }
 
-        _velocity = (_velocity + _oldVelocity) / 2;
-
-        gameObject.transform.position += _velocity * Time.deltaTime;
         
     }
 
