@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
 
     public float gravConst = 9.8f;
 
-    public float mass = 1f;
+    
 
 
     // Start is called before the first frame update
@@ -36,7 +36,7 @@ public class Player : MonoBehaviour
         Rigidbody2D rb2d = GetComponent<Rigidbody2D>();
         if (_inBlackHole)
         {
-            rb2d.AddForce(HoleGravityVector(blackHole.transform.position, transform.position, bh.mass, mass), ForceMode2D.Impulse);
+            rb2d.AddForce(HoleGravityVector(blackHole.transform.position, transform.position, bh.mass), ForceMode2D.Impulse);
         }
 
         
@@ -71,7 +71,7 @@ public class Player : MonoBehaviour
         return launch;
     }
 
-    Vector2 HoleGravityVector(Vector2 holevector, Vector2 objvector, float holemass, float objmass)
+    Vector2 HoleGravityVector(Vector2 holevector, Vector2 objvector, float holemass)
     {
         Vector2 obj2hole;
 
@@ -79,7 +79,7 @@ public class Player : MonoBehaviour
         obj2hole.y = holevector.y - objvector.y;
         float distance = obj2hole.magnitude;
         obj2hole.Normalize();
-        float force = gravConst * holemass * objmass / (distance * distance);
+        float force = gravConst * holemass / (distance * distance);
         obj2hole *= force;
 
         return obj2hole;
