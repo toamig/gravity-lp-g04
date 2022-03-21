@@ -19,6 +19,12 @@ public class BlackHole : MonoBehaviour
         set => _mass = value;
     }
 
+    private static float _minScale = 0.5f;
+    public static float minScale => _minScale;
+
+    private static float _maxScale = 3;
+    public static float maxScale => _maxScale;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,8 +36,4 @@ public class BlackHole : MonoBehaviour
     {
 
     }
-
-
-
-
 }

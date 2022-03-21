@@ -301,7 +301,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2a651714476f98498f208904dabf1d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BlackHole: {fileID: 7635443492960245677, guid: f1ecd5b51de11d14cb29e02914c9ec45, type: 3}
+  blackHolePrefab: {fileID: 7635443492960245677, guid: f1ecd5b51de11d14cb29e02914c9ec45, type: 3}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
