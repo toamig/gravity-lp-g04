@@ -22,7 +22,8 @@ public class InputManager : MonoBehaviour
             if (_blackHoleInstance != null)
             {
                 Vector3 mousePos3 = mousePosition;
-                float scale = Mathf.Min((_blackHoleInstance.transform.position - mousePos3).magnitude, BlackHole.maxScale);
+                float mouseDiff = (_blackHoleInstance.transform.position - mousePos3).magnitude;
+                float scale = Mathf.Min(mouseDiff, BlackHole.maxScale);
                 scale = Mathf.Max(scale, BlackHole.minScale);
                 _blackHoleInstance.transform.localScale = new Vector3(scale, scale, scale);
             }
