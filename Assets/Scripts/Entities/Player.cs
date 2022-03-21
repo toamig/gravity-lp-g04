@@ -46,8 +46,6 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.tag == "BlackHole")
         {
-            Debug.Log("ENTROU");
-
             blackHole = collision.gameObject;
             bh = blackHole.GetComponentInParent<BlackHole>();
             _inBlackHole = true;
