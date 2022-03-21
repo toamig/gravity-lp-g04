@@ -14,7 +14,14 @@ public class InputManager : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            _blackHoleInstance = PlaceBlackHole(mousePosition);
+            if (GetNumBlackHoles() < GameManager.instance.blackHoles)
+            {
+                _blackHoleInstance = PlaceBlackHole(mousePosition);
+            }
+            else { 
+                _blackHoleInstance = null;
+                Debug.Log("You can't place more black holes!");
+            }
         }
 
         if (Input.GetMouseButton(0))
@@ -41,6 +48,11 @@ public class InputManager : MonoBehaviour
         GameObject bh = Instantiate(blackHolePrefab, position, Quaternion.identity);
         bh.transform.localScale = new Vector3(BlackHole.minScale, BlackHole.minScale, BlackHole.minScale);
         return bh;
+    }
+
+    float GetNumBlackHoles()
+    {
+        return GameObject.FindObjectsOfType<BlackHole>().Length;
     }
 
 }
