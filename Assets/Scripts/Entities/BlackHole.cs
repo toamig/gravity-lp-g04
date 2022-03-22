@@ -12,12 +12,12 @@ public class BlackHole : MonoBehaviour
         set => _gravConst = value;
     }
 
-    private float _mass = 20;
+/*    private float _mass = 20f;
     public float mass
     {
         get => _mass;
         set => _mass = value;
-    }
+    } */
 
     private static float _minScale = 0.5f;
     public static float minScale => _minScale;

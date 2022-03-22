@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
     private bool _inBlackHole = false;
 
     GameObject blackHole;
-    BlackHole bh;
+    Rigidbody2D bhrb2d;
 
     public float gravConst = 9.8f;
 
@@ -36,7 +36,7 @@ public class Player : MonoBehaviour
         Rigidbody2D rb2d = GetComponent<Rigidbody2D>();
         if (_inBlackHole)
         {
-            rb2d.AddForce(HoleGravityVector(blackHole.transform.position, transform.position, bh.mass), ForceMode2D.Impulse);
+            rb2d.AddForce(HoleGravityVector(blackHole.transform.position, transform.position, 10*bhrb2d.mass), ForceMode2D.Impulse);
         }
 
         
@@ -47,7 +47,7 @@ public class Player : MonoBehaviour
         if (collision.gameObject.tag == "BlackHole" && collision.gameObject.name == "Range")
         {
             blackHole = collision.gameObject;
-            bh = blackHole.GetComponentInParent<BlackHole>();
+            bhrb2d = blackHole.GetComponentInParent<Rigidbody2D>();
             _inBlackHole = true;
         }
     }
