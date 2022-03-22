@@ -27,7 +27,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         Rigidbody2D rb2d = GetComponent<Rigidbody2D>();
-        //rb2d.AddForce(PlayerLaunchVector(0, 50), ForceMode2D.Impulse);
+        rb2d.AddForce(PlayerLaunchVector(0, 50), ForceMode2D.Impulse);
     }
 
     // Update is called once per frame
