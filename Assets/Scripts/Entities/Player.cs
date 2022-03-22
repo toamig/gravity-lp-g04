@@ -44,7 +44,7 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "BlackHole")
+        if (collision.gameObject.tag == "BlackHole" && collision.gameObject.name == "Range")
         {
             blackHole = collision.gameObject;
             bh = blackHole.GetComponentInParent<BlackHole>();
