@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    private int _currentLevel = 1;
+    public int currentLevel => _currentLevel;
+
     [SerializeField]
     private int _blackHoles = 5;
     public int blackHoles => _blackHoles;
@@ -17,7 +20,7 @@ public class GameManager : MonoBehaviour
     public InputManager inputManager => _inputManager;
 
 
-    public void Awake()
+    void Awake()
     {
         if (_instance == null)
         {
@@ -34,12 +37,12 @@ public class GameManager : MonoBehaviour
         SceneManager.sceneLoaded += SceneManager_sceneLoaded;
     }
 
-    private void Update()
+    void Update()
     {
 
     }
 
-    private void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
+    void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
     {
         if (arg0.name == "Menu")
         {
@@ -52,9 +55,14 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void InitializeManagers()
+    void InitializeManagers()
     {
         _inputManager = GameObject.FindObjectOfType<InputManager>();
+    }
+
+    public float GetNumBlackHoles()
+    {
+        return GameObject.FindObjectsOfType<BlackHole>().Length;
     }
 
 

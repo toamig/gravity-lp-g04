@@ -14,9 +14,10 @@ public class InputManager : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            if (GetNumBlackHoles() < GameManager.instance.blackHoles)
+            if (GameManager.instance.GetNumBlackHoles() < GameManager.instance.blackHoles)
             {
                 _blackHoleInstance = PlaceBlackHole(mousePosition);
+                GameEvents.instance.BlackHolePlaced();
             }
             else { 
                 _blackHoleInstance = null;
@@ -50,9 +51,6 @@ public class InputManager : MonoBehaviour
         return bh;
     }
 
-    float GetNumBlackHoles()
-    {
-        return GameObject.FindObjectsOfType<BlackHole>().Length;
-    }
+    
 
 }
