@@ -36,7 +36,7 @@ public class Player : MonoBehaviour
         foreach (GameObject hole in blackHoles)
         {
             Rigidbody2D bhrb2d = GetComponentInParent<Rigidbody2D>();
-            rb2d.AddForce(HoleGravityVector(hole.transform.position, transform.position, 10 * bhrb2d.mass), ForceMode2D.Impulse);
+            rb2d.AddForce(HoleGravityVector(hole.transform.position, transform.position, 0.15f* bhrb2d.mass * bhrb2d.mass), ForceMode2D.Impulse);
         }
         
     }
