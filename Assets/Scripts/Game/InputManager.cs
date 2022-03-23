@@ -6,7 +6,14 @@ public class InputManager : MonoBehaviour
 {
     public GameObject blackHolePrefab;
 
-    private GameObject _blackHoleInstance;
+    private List<GameObject> _blackHoleList;
+
+    private GameObject _lastBlackHole;
+
+    private void Awake()
+    {
+        _blackHoleList = new List<GameObject>();
+    }
 
     void Update()
     {
@@ -14,31 +21,45 @@ public class InputManager : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            if (GameManager.instance.GetNumBlackHoles() < GameManager.instance.blackHoles)
+            if (_blackHoleList.Count < GameManager.instance.blackHoles)
             {
-                _blackHoleInstance = PlaceBlackHole(mousePosition);
-                GameEvents.instance.BlackHolePlaced();
+                _lastBlackHole = PlaceBlackHole(mousePosition);
+                _blackHoleList.Add(_lastBlackHole);
+                GameEvents.instance.BlackHolePlaced(_blackHoleList.Count);
             }
-            else { 
-                _blackHoleInstance = null;
+            else {
+                _lastBlackHole = null;
                 Debug.Log("You can't place more black holes!");
             }
         }
 
         if (Input.GetMouseButton(0))
         {
-            if (_blackHoleInstance != null)
+            if (_lastBlackHole != null)
             {
                 Vector3 mousePos3 = mousePosition;
-                float mouseDiff = (_blackHoleInstance.transform.position - mousePos3).magnitude;
+                float mouseDiff = (_lastBlackHole.transform.position - mousePos3).magnitude;
                 float scale = Mathf.Min(mouseDiff, BlackHole.maxScale);
                 scale = Mathf.Max(scale, BlackHole.minScale);
-                _blackHoleInstance.transform.localScale = new Vector3(scale, scale, scale);
+                _lastBlackHole.transform.localScale = new Vector3(scale, scale, scale);
             }
 
             if (Input.GetMouseButtonUp(0))
             {
-                _blackHoleInstance = null;
+                _lastBlackHole = null;
+            }
+        }
+
+        if (Input.GetKey(KeyCode.LeftControl))
+        {
+            if (Input.GetKeyDown(KeyCode.Z))
+            {
+                if (_blackHoleList.Count > 0)
+                {
+                    Destroy(_blackHoleList[_blackHoleList.Count - 1]);
+                    _blackHoleList.RemoveAt(_blackHoleList.Count - 1);
+                    GameEvents.instance.BlackHoleRemoved(_blackHoleList.Count);
+                }
             }
         }
         

@@ -23,10 +23,16 @@ public class GameEvents
 
     }
 
-    public event Action OnBlackHolePlaced;
-    public void BlackHolePlaced()
+    public event Action<int> OnBlackHolePlaced;
+    public void BlackHolePlaced(int num)
     {
-        OnBlackHolePlaced?.Invoke();
+        OnBlackHolePlaced?.Invoke(num);
+    }
+
+    public event Action<int> OnBlackHoleRemoved;
+    public void BlackHoleRemoved(int num)
+    {
+        OnBlackHoleRemoved?.Invoke(num);
     }
 
     public event Action OnReachGoal;
