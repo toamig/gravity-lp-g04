@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
 
-        SceneManager.sceneLoaded += SceneManager_sceneLoaded;
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     void Update()
@@ -42,14 +42,14 @@ public class GameManager : MonoBehaviour
 
     }
 
-    void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (arg0.name == "Menu")
+        if (scene.name == "Menu")
         {
 
         }
 
-        if (arg0.name == "MainScene")
+        if (scene.name == "MainScene")
         {
             InitializeManagers();
         }
@@ -59,11 +59,4 @@ public class GameManager : MonoBehaviour
     {
         _inputManager = GameObject.FindObjectOfType<InputManager>();
     }
-
-    public float GetNumBlackHoles()
-    {
-        return GameObject.FindObjectsOfType<BlackHole>().Length;
-    }
-
-
 }

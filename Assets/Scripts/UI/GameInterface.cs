@@ -13,7 +13,8 @@ public class GameInterface : MonoBehaviour
 
     private void Awake()
     {
-        GameEvents.instance.OnBlackHolePlaced += UpdateBlackHoleCounter;
+        GameEvents.instance.OnBlackHolePlaced += (num) => UpdateBlackHoleCounter(num);
+        GameEvents.instance.OnBlackHoleRemoved += (num) => UpdateBlackHoleCounter(num);
     }
 
     // Start is called before the first frame update
@@ -34,8 +35,8 @@ public class GameInterface : MonoBehaviour
         blackHoles.text = "0/" + GameManager.instance.blackHoles;
     }
 
-    void UpdateBlackHoleCounter()
+    void UpdateBlackHoleCounter(int num)
     {
-        blackHoles.text = GameManager.instance.GetNumBlackHoles() + "/" + GameManager.instance.blackHoles;
+        blackHoles.text = num + "/" + GameManager.instance.blackHoles;
     }
 }
