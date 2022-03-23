@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
 
     private Vector3 _oldVelocity;
 
+
     Rigidbody2D bhrb2d;
 
     public float gravConst = 9.8f;
@@ -34,6 +35,7 @@ public class Player : MonoBehaviour
         Rigidbody2D rb2d = GetComponent<Rigidbody2D>();
         foreach (GameObject hole in blackHoles)
         {
+            Rigidbody2D bhrb2d = GetComponentInParent<Rigidbody2D>();
             rb2d.AddForce(HoleGravityVector(hole.transform.position, transform.position, 10 * bhrb2d.mass), ForceMode2D.Impulse);
         }
         
