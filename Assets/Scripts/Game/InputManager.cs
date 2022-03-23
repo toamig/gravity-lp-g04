@@ -67,7 +67,10 @@ public class InputManager : MonoBehaviour
         {
             GameEvents.instance.PlayerLaunched();
         }
-        
+
+        Camera.main.orthographicSize -= Input.GetAxis("Mouse ScrollWheel") * 2;
+        Camera.main.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize, 5, 10);
+
     }
 
     GameObject PlaceBlackHole(Vector2 position)
