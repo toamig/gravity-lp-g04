@@ -14,6 +14,8 @@ public class Player : MonoBehaviour
     Rigidbody2D bhrb2d;
 
     public float gravConst = 9.8f;
+    private float pi = Mathf.PI;
+    private float radius;
 
     private List<GameObject> blackHoles = new List<GameObject>();
 
@@ -37,8 +39,9 @@ public class Player : MonoBehaviour
         Rigidbody2D rb2d = GetComponent<Rigidbody2D>();
         foreach (GameObject hole in blackHoles)
         {
-            Rigidbody2D bhrb2d = GetComponentInParent<Rigidbody2D>();
-            rb2d.AddForce(HoleGravityVector(hole.transform.position, transform.position, 0.15f* bhrb2d.mass * bhrb2d.mass), ForceMode2D.Impulse);
+            Transform bhTransform = GetComponentInParent<Transform>();
+            radius = bhTransform.localScale.x/2;
+            rb2d.AddForce(HoleGravityVector(hole.transform.position, transform.position, 25*radius*radius*pi), ForceMode2D.Impulse); ;
         }
         
     }
