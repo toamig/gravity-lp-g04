@@ -11,22 +11,24 @@ public class Player : MonoBehaviour
         set => _velocity = value;
     }
 
-    private Vector3 _oldVelocity;
-
-
     Rigidbody2D bhrb2d;
 
     public float gravConst = 9.8f;
 
     private List<GameObject> blackHoles = new List<GameObject>();
 
+    private bool _playerLaunched;
 
+    private void Awake()
+    {
+        GameEvents.instance.OnPlayerLaunched += LaunchPlayer;
+        _playerLaunched = false;
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        Rigidbody2D rb2d = GetComponent<Rigidbody2D>();
-        rb2d.AddForce(PlayerLaunchVector(0, 50), ForceMode2D.Impulse);
+
     }
 
     // Update is called once per frame
@@ -54,6 +56,16 @@ public class Player : MonoBehaviour
         if (collision.gameObject.tag == "BlackHole" && collision.gameObject.name == "Range")
         {
             blackHoles.Remove(collision.gameObject);
+        }
+    }
+
+    void LaunchPlayer()
+    {
+        if (!_playerLaunched)
+        {
+            Rigidbody2D rb2d = GetComponent<Rigidbody2D>();
+            rb2d.AddForce(PlayerLaunchVector(0, 50), ForceMode2D.Impulse);
+            _playerLaunched = true;
         }
     }
 

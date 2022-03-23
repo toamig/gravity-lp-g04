@@ -19,6 +19,9 @@ public class GameManager : MonoBehaviour
     private InputManager _inputManager;
     public InputManager inputManager => _inputManager;
 
+    private bool _levelStarted;
+    public bool levelStarted => _levelStarted;
+
 
     void Awake()
     {
@@ -34,6 +37,7 @@ public class GameManager : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
 
+        GameEvents.instance.OnPlayerLaunched += () => _levelStarted = true;
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
@@ -44,6 +48,8 @@ public class GameManager : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        _levelStarted = false;
+
         if (scene.name == "Menu")
         {
 

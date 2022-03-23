@@ -35,6 +35,12 @@ public class GameEvents
         OnBlackHoleRemoved?.Invoke(num);
     }
 
+    public event Action OnPlayerLaunched;
+    public void PlayerLaunched()
+    {
+        OnPlayerLaunched?.Invoke();
+    }
+
     public event Action OnReachGoal;
     public void ReachGoal()
     {
