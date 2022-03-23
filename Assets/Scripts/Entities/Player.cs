@@ -13,14 +13,12 @@ public class Player : MonoBehaviour
 
     private Vector3 _oldVelocity;
 
-    private bool _inBlackHole = false;
-
-    GameObject blackHole;
     Rigidbody2D bhrb2d;
 
     public float gravConst = 9.8f;
 
-    
+    private List<GameObject> blackHoles = new List<GameObject>();
+
 
 
     // Start is called before the first frame update
@@ -34,11 +32,10 @@ public class Player : MonoBehaviour
     void FixedUpdate()
     {
         Rigidbody2D rb2d = GetComponent<Rigidbody2D>();
-        if (_inBlackHole)
+        foreach (GameObject hole in blackHoles)
         {
-            rb2d.AddForce(HoleGravityVector(blackHole.transform.position, transform.position, 10*bhrb2d.mass), ForceMode2D.Impulse);
+            rb2d.AddForce(HoleGravityVector(hole.transform.position, transform.position, 10 * bhrb2d.mass), ForceMode2D.Impulse);
         }
-
         
     }
 
@@ -46,17 +43,15 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.tag == "BlackHole" && collision.gameObject.name == "Range")
         {
-            blackHole = collision.gameObject;
-            bhrb2d = blackHole.GetComponentInParent<Rigidbody2D>();
-            _inBlackHole = true;
+            blackHoles.Add(collision.gameObject);
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "BlackHole")
+        if (collision.gameObject.tag == "BlackHole" && collision.gameObject.name == "Range")
         {
-            _inBlackHole = false;
+            blackHoles.Remove(collision.gameObject);
         }
     }
 

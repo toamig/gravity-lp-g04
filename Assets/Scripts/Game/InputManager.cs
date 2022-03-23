@@ -50,7 +50,4 @@ public class InputManager : MonoBehaviour
         bh.transform.localScale = new Vector3(BlackHole.minScale, BlackHole.minScale, BlackHole.minScale);
         return bh;
     }
-
-    
-
 }
