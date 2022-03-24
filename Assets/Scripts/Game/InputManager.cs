@@ -17,11 +17,13 @@ public class InputManager : MonoBehaviour
 
     void Update()
     {
+        // Black Hole Placement
+
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         if (Input.GetMouseButtonDown(0))
         {
-            if (_blackHoleList.Count < GameManager.instance.blackHoles)
+            if (_blackHoleList.Count < GameManager.instance.levelManager.blackHoleNumber)
             {
                 _lastBlackHole = PlaceBlackHole(mousePosition);
                 _blackHoleList.Add(_lastBlackHole);
@@ -63,10 +65,14 @@ public class InputManager : MonoBehaviour
             }
         }
 
+        // Player Launch
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             GameEvents.instance.PlayerLaunched();
         }
+
+        // Camera Control
 
         Camera.main.orthographicSize -= Input.GetAxis("Mouse ScrollWheel") * 2;
         Camera.main.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize, 5, 10);

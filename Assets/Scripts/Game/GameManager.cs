@@ -5,12 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    private int _currentLevel = 1;
-    public int currentLevel => _currentLevel;
-
-    [SerializeField]
-    private int _blackHoles = 5;
-    public int blackHoles => _blackHoles;
+    public int currentLevel => SceneManager.GetActiveScene().buildIndex;
 
     // Game manager singleton initialization
     private static GameManager _instance;
@@ -18,6 +13,9 @@ public class GameManager : MonoBehaviour
 
     private InputManager _inputManager;
     public InputManager inputManager => _inputManager;
+
+    private LevelManager _levelManager;
+    public LevelManager levelManager => _levelManager;
 
     private bool _levelStarted;
     public bool levelStarted => _levelStarted;
@@ -50,14 +48,13 @@ public class GameManager : MonoBehaviour
     {
         _levelStarted = false;
 
-        if (scene.name == "Menu")
+        if (scene.buildIndex != 0)
         {
-
+            _levelManager = GameObject.FindObjectOfType<LevelManager>();
         }
-
-        if (scene.name == "MainScene")
+        else
         {
-            InitializeManagers();
+
         }
     }
 

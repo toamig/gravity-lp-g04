@@ -5,17 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
-    public Scene scene;
+    [SerializeField]
+    private int _blackHoleNumber;
+    public int blackHoleNumber => _blackHoleNumber;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [SerializeField]
+    private Vector2 _levelBorders;
+    public Vector2 levelBorders => _levelBorders;
 }

@@ -32,11 +32,11 @@ public class GameInterface : MonoBehaviour
     void InitializeUI()
     {
         level.text = "1";
-        blackHoles.text = "0/" + GameManager.instance.blackHoles;
+        blackHoles.text = "0/" + GameManager.instance.levelManager.blackHoleNumber;
     }
 
     void UpdateBlackHoleCounter(int num)
     {
-        blackHoles.text = num + "/" + GameManager.instance.blackHoles;
+        blackHoles.text = num + "/" + GameManager.instance.levelManager.blackHoleNumber;
     }
 }
