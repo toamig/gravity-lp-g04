@@ -107,6 +107,11 @@ public class Player : MonoBehaviour
         return obj2hole;
     }
 
+    private void OnDestroy()
+    {
+        GameEvents.instance.OnPlayerLaunched -= LaunchPlayer;
+    }
+
     void OnDrawGizmos()
     {
         Gizmos.DrawLine(transform.position, transform.position + _velocity);

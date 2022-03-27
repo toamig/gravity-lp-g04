@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameInterface : MonoBehaviour
 {
@@ -13,8 +14,9 @@ public class GameInterface : MonoBehaviour
 
     private void Awake()
     {
-        GameEvents.instance.OnBlackHolePlaced += (num) => UpdateBlackHoleCounter(num);
-        GameEvents.instance.OnBlackHoleRemoved += (num) => UpdateBlackHoleCounter(num);
+        GameEvents.instance.OnBlackHolePlaced += UpdateBlackHoleCounter;
+        GameEvents.instance.OnBlackHoleRemoved += UpdateBlackHoleCounter;
+        retry.onClick.AddListener(() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single));
     }
 
     // Start is called before the first frame update
@@ -26,7 +28,10 @@ public class GameInterface : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            blackHoles.text = Random.Range(0, 10) + "/" + GameManager.instance.levelManager.blackHoleNumber;
+        }
     }
 
     void InitializeUI()
@@ -37,6 +42,13 @@ public class GameInterface : MonoBehaviour
 
     void UpdateBlackHoleCounter(int num)
     {
-        blackHoles.text = num + "/" + GameManager.instance.levelManager.blackHoleNumber;
+        this.blackHoles.text = num + "/" + GameManager.instance.levelManager.blackHoleNumber;
+    }
+
+    private void OnDestroy()
+    {
+        GameEvents.instance.OnBlackHolePlaced -= UpdateBlackHoleCounter;
+        GameEvents.instance.OnBlackHoleRemoved -=UpdateBlackHoleCounter;
+        Debug.Log("destruiu");
     }
 }
