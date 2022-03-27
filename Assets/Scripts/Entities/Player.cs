@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     }
 
     Rigidbody2D bhrb2d;
+    public GameObject playerLines;
 
     public float gravConst = 9.8f;
     private float pi = Mathf.PI;
@@ -30,7 +31,15 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        Vector3[] linevectors = new Vector3[2];
+        linevectors[0] = gameObject.transform.position;
+        Vector3 launchvector3 = PlayerLaunchVector(0, 50)/30;
+        linevectors[1] = gameObject.transform.position + launchvector3;
+        LineRenderer previewline = GetComponent<LineRenderer>();
+        previewline.startColor = Color.yellow;
+        previewline.endColor = Color.white;
+        previewline.positionCount = 2;
+        previewline.SetPositions(linevectors);
     }
 
     // Update is called once per frame
@@ -69,6 +78,8 @@ public class Player : MonoBehaviour
             Rigidbody2D rb2d = GetComponent<Rigidbody2D>();
             rb2d.AddForce(PlayerLaunchVector(0, 50), ForceMode2D.Impulse);
             _playerLaunched = true;
+            LineRenderer previewline = GetComponent<LineRenderer>();
+            Destroy(previewline);
         }
     }
 
