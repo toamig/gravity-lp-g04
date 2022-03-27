@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
     private LevelManager _levelManager;
     public LevelManager levelManager => _levelManager;
 
+    public GameObject UI;
+
     private bool _levelStarted;
     public bool levelStarted => _levelStarted;
 
@@ -39,9 +41,14 @@ public class GameManager : MonoBehaviour
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
+    private void Start()
+    {
+        
+    }
+
     void Update()
     {
-
+        
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -50,7 +57,9 @@ public class GameManager : MonoBehaviour
 
         if (scene.buildIndex != 0)
         {
+            Instantiate(UI);
             _levelManager = GameObject.FindObjectOfType<LevelManager>();
+            Debug.Log("ola");
         }
         else
         {
