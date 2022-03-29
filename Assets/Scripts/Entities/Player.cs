@@ -33,11 +33,12 @@ public class Player : MonoBehaviour
     {
         Vector3[] linevectors = new Vector3[2];
         linevectors[0] = gameObject.transform.position;
-        Vector3 launchvector3 = PlayerLaunchVector(0, 50)/30;
+        Vector3 launchvector3 = PlayerLaunchVector(0, 50)/20;
         linevectors[1] = gameObject.transform.position + launchvector3;
         LineRenderer previewline = GetComponent<LineRenderer>();
         previewline.startColor = Color.yellow;
         previewline.endColor = Color.white;
+        previewline.endWidth = 0f;
         previewline.positionCount = 2;
         previewline.SetPositions(linevectors);
     }
