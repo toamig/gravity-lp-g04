@@ -98,10 +98,10 @@ public class Player : MonoBehaviour
 
         obj2hole.x = holevector.x - objvector.x;
         obj2hole.y = holevector.y - objvector.y;
-        float distance = obj2hole.magnitude;
+        float distance = obj2hole.sqrMagnitude;
         if (distance < 2) distance = 2f;
         obj2hole.Normalize();
-        float force = gravConst * holemass / (distance * distance);
+        float force = gravConst * holemass / distance;
         obj2hole *= force;
 
         return obj2hole;
