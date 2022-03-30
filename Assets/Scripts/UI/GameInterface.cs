@@ -48,7 +48,7 @@ public class GameInterface : MonoBehaviour
     private void OnDestroy()
     {
         GameEvents.instance.OnBlackHolePlaced -= UpdateBlackHoleCounter;
-        GameEvents.instance.OnBlackHoleRemoved -=UpdateBlackHoleCounter;
-        Debug.Log("destruiu");
+        GameEvents.instance.OnBlackHoleRemoved -= UpdateBlackHoleCounter;
+        //Debug.Log("destruiu");
     }
 }

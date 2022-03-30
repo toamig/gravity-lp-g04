@@ -33,7 +33,7 @@ public class Player : MonoBehaviour
     {
         Vector3[] linevectors = new Vector3[2];
         linevectors[0] = gameObject.transform.position;
-        Vector3 launchvector3 = PlayerLaunchVector(0, 50)/20;
+        Vector3 launchvector3 = PlayerLaunchVector(GameManager.instance.levelManager.startVelocity.direction, GameManager.instance.levelManager.startVelocity.magnitude) /20;
         linevectors[1] = gameObject.transform.position + launchvector3;
         LineRenderer previewline = GetComponent<LineRenderer>();
         previewline.startColor = Color.yellow;
@@ -77,20 +77,16 @@ public class Player : MonoBehaviour
         if (!_playerLaunched)
         {
             Rigidbody2D rb2d = GetComponent<Rigidbody2D>();
-            rb2d.AddForce(PlayerLaunchVector(0, 50), ForceMode2D.Impulse);
+            rb2d.AddForce(PlayerLaunchVector(GameManager.instance.levelManager.startVelocity.direction, GameManager.instance.levelManager.startVelocity.magnitude), ForceMode2D.Impulse);
             _playerLaunched = true;
             LineRenderer previewline = GetComponent<LineRenderer>();
             Destroy(previewline);
         }
     }
 
-    Vector2 PlayerLaunchVector(float angle, float strength)
+    Vector2 PlayerLaunchVector(Vector2 direction, float strength)
     {
-        Vector2 launch;
-        launch.x = Mathf.Cos(angle);
-        launch.y = Mathf.Sin(angle);
-        launch *= strength;
-        return launch;
+        return direction * strength;
     }
 
     Vector2 HoleGravityVector(Vector2 holevector, Vector2 objvector, float holemass)

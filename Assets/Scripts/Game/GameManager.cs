@@ -11,6 +11,9 @@ public class GameManager : MonoBehaviour
     private static GameManager _instance;
     public static GameManager instance => _instance;
 
+    private Player _player;
+    public Player player => _player;
+
     private InputManager _inputManager;
     public InputManager inputManager => _inputManager;
 
@@ -58,6 +61,7 @@ public class GameManager : MonoBehaviour
         if (scene.buildIndex != 0)
         {
             Instantiate(UI);
+            InitializeManagers();
             _levelManager = GameObject.FindObjectOfType<LevelManager>();
             Debug.Log("ola");
         }
@@ -69,6 +73,7 @@ public class GameManager : MonoBehaviour
 
     void InitializeManagers()
     {
+        _player = GameObject.FindObjectOfType<Player>();
         _inputManager = GameObject.FindObjectOfType<InputManager>();
     }
 }

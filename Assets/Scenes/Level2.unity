@@ -282,6 +282,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _blackHoleNumber: 5
   _levelBorders: {x: 0, y: 0}
+  _startVelocity:
+    _direction: {x: 5, y: -1}
+    _magnitude: 50
 --- !u!4 &621632807
 Transform:
   m_ObjectHideFlags: 0
