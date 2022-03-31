@@ -26,6 +26,11 @@ public class Trajectory : MonoBehaviour
     private float _dotMaxScale;
     public float dotMaxScale => _dotMaxScale;
 
+    private void Awake()
+    {
+        GameEvents.instance.OnPlayerLaunched += Hide;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -77,5 +82,20 @@ public class Trajectory : MonoBehaviour
             _trajectoryObject.transform.GetChild(i).position = pos;
             timeStamp += dotSpacing;
         }
+    }
+
+    private void OnDestroy()
+    {
+        GameEvents.instance.OnPlayerLaunched -= Hide;
+    }
+
+    void Show()
+    {
+        _trajectoryObject.SetActive(true);
+    }
+
+    void Hide()
+    {
+        _trajectoryObject.SetActive(false);
     }
 }

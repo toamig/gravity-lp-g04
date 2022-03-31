@@ -66,11 +66,12 @@ public class InputManager : MonoBehaviour
                     scale = Mathf.Max(scale, BlackHole.minScale);
                     _lastBlackHole.transform.localScale = Vector3.one * scale;
                 }
+            }
 
-                if (Input.GetMouseButtonUp(0))
-                {
-                    _lastBlackHole = null;
-                }
+            if (Input.GetMouseButtonUp(0))
+            {
+                Debug.Log(_lastBlackHole.GetComponent<Rigidbody2D>().mass);
+                _lastBlackHole = null;
             }
 
             if (Input.GetKey(KeyCode.LeftControl))
