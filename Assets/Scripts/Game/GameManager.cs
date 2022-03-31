@@ -11,20 +11,24 @@ public class GameManager : MonoBehaviour
     private static GameManager _instance;
     public static GameManager instance => _instance;
 
+    // Player
     private Player _player;
     public Player player => _player;
 
+    // Managers
     private InputManager _inputManager;
     public InputManager inputManager => _inputManager;
 
     private LevelManager _levelManager;
     public LevelManager levelManager => _levelManager;
 
+    private BlackHoleManager _blackHoleManager;
+    public BlackHoleManager blackHoleManager => _blackHoleManager;
+
     public GameObject UI;
 
     private bool _levelStarted;
     public bool levelStarted => _levelStarted;
-
 
     void Awake()
     {
@@ -63,7 +67,6 @@ public class GameManager : MonoBehaviour
             Instantiate(UI);
             InitializeManagers();
             _levelManager = GameObject.FindObjectOfType<LevelManager>();
-            Debug.Log("ola");
         }
         else
         {
@@ -75,5 +78,6 @@ public class GameManager : MonoBehaviour
     {
         _player = GameObject.FindObjectOfType<Player>();
         _inputManager = GameObject.FindObjectOfType<InputManager>();
+        _blackHoleManager = GameObject.FindObjectOfType<BlackHoleManager>();
     }
 }

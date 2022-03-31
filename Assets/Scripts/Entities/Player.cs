@@ -11,9 +11,6 @@ public class Player : MonoBehaviour
         set => _velocity = value;
     }
 
-    Rigidbody2D bhrb2d;
-    public GameObject playerLines;
-
     public float gravConst = 9.8f;
     private float pi = Mathf.PI;
     private float radius;
@@ -35,12 +32,6 @@ public class Player : MonoBehaviour
         linevectors[0] = gameObject.transform.position;
         Vector3 launchvector3 = PlayerLaunchVector(GameManager.instance.levelManager.startVelocity.direction, GameManager.instance.levelManager.startVelocity.magnitude) /20;
         linevectors[1] = gameObject.transform.position + launchvector3;
-        LineRenderer previewline = GetComponent<LineRenderer>();
-        previewline.startColor = Color.yellow;
-        previewline.endColor = Color.white;
-        previewline.endWidth = 0f;
-        previewline.positionCount = 2;
-        previewline.SetPositions(linevectors);
     }
 
     // Update is called once per frame
