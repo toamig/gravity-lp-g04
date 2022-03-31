@@ -101,6 +101,7 @@ public class InputManager : MonoBehaviour
 
         GameObject bh = Instantiate(blackHolePrefab, position, Quaternion.identity);
         bh.transform.localScale = Vector3.one * BlackHole.minScale;
+        DontDestroyOnLoad(bh);
         return bh.GetComponent<BlackHole>();
     }
 }

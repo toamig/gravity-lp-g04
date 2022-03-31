@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class Goal : MonoBehaviour
 {
+    public GameObject[] holes;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +22,11 @@ public class Goal : MonoBehaviour
     {
         if(collision.gameObject.tag == "Player")
         {
+            holes = GameObject.FindGameObjectsWithTag("BlackHole");
+            foreach (GameObject hole in holes)
+            {
+                Destroy(hole);
+            }
             SceneManager.LoadScene(GameManager.instance.currentLevel + 1, LoadSceneMode.Single);
         }
     }
