@@ -12,6 +12,14 @@ public class Player : MonoBehaviour
         _playerLaunched = false;
     }
 
+    private void Update()
+    {
+        Rigidbody2D rb2d = GetComponent<Rigidbody2D>();
+        Vector3 vel = rb2d.velocity;
+        float lookAngle = Vector3.SignedAngle(Vector3.right, vel, Vector3.forward);
+        rb2d.SetRotation(lookAngle);
+    }
+
     void LaunchPlayer()
     {
         if (!_playerLaunched)

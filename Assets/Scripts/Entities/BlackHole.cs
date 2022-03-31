@@ -54,9 +54,8 @@ public class BlackHole : MonoBehaviour
         Rigidbody2D rbAttracted = attractedObj.GetComponent<Rigidbody2D>();
 
         Vector2 direction = (transform.position - attractedObj.transform.position).normalized;
-        float distance = direction.magnitude;
-
-        float forceMagnitude = _gravConst * (rb.mass * rbAttracted.mass) / Mathf.Pow(distance, 2) ;
+        float sqrDistance = direction.sqrMagnitude;
+        float forceMagnitude = _gravConst * (rb.mass * rbAttracted.mass) / sqrDistance ;
         Vector2 force = direction * forceMagnitude;
 
         rbAttracted.AddForce(force);
