@@ -28,10 +28,7 @@ public class GameInterface : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            blackHoles.text = Random.Range(0, 10) + "/" + GameManager.instance.levelManager.blackHoleNumber;
-        }
+
     }
 
     void InitializeUI()
