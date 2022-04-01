@@ -14,6 +14,9 @@ public class LevelManager : MonoBehaviour
     private Vector2 _levelBorders;
     public Vector2 levelBorders => _levelBorders;
 
+    [SerializeField]
+    private int _parHoleNumber;
+    public int parHoleNumber => _parHoleNumber;
 
     [Header("Player")]
     [SerializeField]

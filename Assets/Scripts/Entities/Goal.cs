@@ -27,7 +27,7 @@ public class Goal : MonoBehaviour
             {
                 Destroy(hole);
             }
-            SceneManager.LoadScene(GameManager.instance.currentLevel + 1, LoadSceneMode.Single);
+            GameEvents.instance.ReachGoal();
         }
     }
 }

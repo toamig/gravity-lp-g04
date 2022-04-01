@@ -70,7 +70,6 @@ public class InputManager : MonoBehaviour
 
             if (Input.GetMouseButtonUp(0))
             {
-                Debug.Log(_lastBlackHole.GetComponent<Rigidbody2D>().mass);
                 _lastBlackHole = null;
             }
 

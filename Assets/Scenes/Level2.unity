@@ -282,6 +282,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _blackHoleNumber: 5
   _levelBorders: {x: 0, y: 0}
+  _parHoleNumber: 1
   _startVelocity:
     _direction: {x: 5, y: -1}
     _magnitude: 50
@@ -311,7 +312,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2a651714476f98498f208904dabf1d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blackHolePrefab: {fileID: 7635443492960245677, guid: f1ecd5b51de11d14cb29e02914c9ec45, type: 3}
 --- !u!1001 &1427230414
 PrefabInstance:
   m_ObjectHideFlags: 0

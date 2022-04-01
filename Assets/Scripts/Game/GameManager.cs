@@ -61,6 +61,7 @@ public class GameManager : MonoBehaviour
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         _levelStarted = false;
+        Time.timeScale = 1;
 
         if (scene.buildIndex != 0)
         {
