@@ -9,6 +9,7 @@ public class InputManager : MonoBehaviour
 
     private BlackHole _lastBlackHole;
 
+
     private void Awake()
     {
         
@@ -73,6 +74,18 @@ public class InputManager : MonoBehaviour
                 _lastBlackHole = null;
             }
 
+            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+
+            if (hit.collider != null)
+            {
+                if (hit.collider.name == "Center" && hit.collider.tag == "BlackHole")
+                {
+                    Debug.Log("entrou");
+                    Transform bhTransform = GetComponentInParent<Transform>();
+                    bhTransform.position = mousePosition;
+                }
+            }
+
             if (Input.GetKey(KeyCode.LeftControl))
             {
                 if (Input.GetKeyDown(KeyCode.Z))
@@ -93,6 +106,7 @@ public class InputManager : MonoBehaviour
         Camera.main.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize, 5, 10);
 
     }
+
 
     BlackHole PlaceBlackHole(Vector2 position)
     {
