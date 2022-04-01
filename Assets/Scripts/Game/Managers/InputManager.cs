@@ -73,16 +73,17 @@ public class InputManager : MonoBehaviour
             {
                 _lastBlackHole = null;
             }
-
-            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-
-            if (hit.collider != null)
+            if (Input.GetMouseButton(1))
             {
-                if (hit.collider.name == "Center" && hit.collider.tag == "BlackHole")
+                RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+
+                if (hit.collider != null)
                 {
-                    Debug.Log("entrou");
-                    Transform bhTransform = GetComponentInParent<Transform>();
-                    bhTransform.position = mousePosition;
+                    if (hit.collider.tag == "BlackHole")
+                    {
+                        Rigidbody2D bhTransform = hit.collider.GetComponentInParent<Rigidbody2D>();
+                        bhTransform.position = mousePosition;
+                    }
                 }
             }
 
