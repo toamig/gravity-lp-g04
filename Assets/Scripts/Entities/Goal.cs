@@ -22,11 +22,6 @@ public class Goal : MonoBehaviour
     {
         if(collision.gameObject.tag == "Player")
         {
-            holes = GameObject.FindGameObjectsWithTag("BlackHole");
-            foreach (GameObject hole in holes)
-            {
-                Destroy(hole);
-            }
             GameEvents.instance.ReachGoal();
         }
     }

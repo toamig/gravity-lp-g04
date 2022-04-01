@@ -47,4 +47,15 @@ public class GameEvents
         OnReachGoal?.Invoke();
     }
 
+    public event Action OnSceneChanged;
+    public void SceneChanged()
+    {
+        OnSceneChanged?.Invoke();
+    }
+
+    public event Action OnSceneRealoaded;
+    public void SceneReloaded()
+    {
+        OnSceneRealoaded?.Invoke();
+    }
 }

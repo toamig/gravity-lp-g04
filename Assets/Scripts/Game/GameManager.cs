@@ -25,6 +25,8 @@ public class GameManager : MonoBehaviour
     private BlackHoleManager _blackHoleManager;
     public BlackHoleManager blackHoleManager => _blackHoleManager;
 
+    private int _currentLevel;
+
     public GameObject UI;
 
     private bool _levelStarted;
@@ -44,6 +46,7 @@ public class GameManager : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
 
+        _currentLevel = SceneManager.GetActiveScene().buildIndex;
         GameEvents.instance.OnPlayerLaunched += () => _levelStarted = true;
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
@@ -69,10 +72,18 @@ public class GameManager : MonoBehaviour
             InitializeManagers();
             _levelManager = GameObject.FindObjectOfType<LevelManager>();
         }
+
+        if (scene.buildIndex != _currentLevel)
+        {
+            _blackHoleManager.ResetBlackHoles();
+            GameEvents.instance.SceneChanged();
+        }
         else
         {
-
+            GameEvents.instance.SceneReloaded();
         }
+
+        _currentLevel = scene.buildIndex;
     }
 
     void InitializeManagers()
