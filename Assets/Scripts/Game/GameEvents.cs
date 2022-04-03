@@ -47,6 +47,12 @@ public class GameEvents
         OnReachGoal?.Invoke();
     }
 
+    public event Action OnPlayerDeath;
+    public void PlayerDeath()
+    {
+        OnPlayerDeath?.Invoke();
+    }
+
     public event Action OnSceneChanged;
     public void SceneChanged()
     {

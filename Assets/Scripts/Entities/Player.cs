@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         GameEvents.instance.OnPlayerLaunched += LaunchPlayer;
+        GameEvents.instance.OnPlayerDeath += KillPlayer;
         _playerLaunched = false;
     }
 
@@ -30,9 +32,27 @@ public class Player : MonoBehaviour
         }
     }
 
+    void KillPlayer()
+    {
+        Rigidbody2D rb2d = GetComponent<Rigidbody2D>();
+        rb2d.velocity = Vector2.zero;
+        rb2d.AddTorque(100);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
+    }
+
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.name == "Center" && collision.gameObject.tag == "BlackHole")
+        {
+            GameEvents.instance.PlayerDeath();
+        }
+    }
+
     private void OnDestroy()
     {
         GameEvents.instance.OnPlayerLaunched -= LaunchPlayer;
+        GameEvents.instance.OnPlayerDeath -= KillPlayer;
     }
 
     void OnDrawGizmos()
