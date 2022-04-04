@@ -79,8 +79,9 @@ public class BlackHole : MonoBehaviour
         }
     }
 
-    public void UpdatePlayer()
+    public void UpdateBlackHole()
     {
+        _isPlayerInside = false;
         _player = GameManager.instance.player;
     }
 }

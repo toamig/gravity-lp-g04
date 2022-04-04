@@ -33,8 +33,8 @@ public class GameInterface : MonoBehaviour
 
     void InitializeUI()
     {
-        level.text = "1";
-        blackHoles.text = "0/" + GameManager.instance.levelManager.blackHoleNumber;
+        level.text = SceneManager.GetActiveScene().buildIndex.ToString();
+        blackHoles.text = GameManager.instance.blackHoleManager.blackHoleList.Count + "/" + GameManager.instance.levelManager.blackHoleNumber;
     }
 
     void UpdateBlackHoleCounter(int num)

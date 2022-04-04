@@ -73,19 +73,8 @@ public class InputManager : MonoBehaviour
             {
                 _lastBlackHole = null;
             }
-            if (Input.GetMouseButton(1))
-            {
-                RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
 
-                if (hit.collider != null)
-                {
-                    if (hit.collider.tag == "BlackHole")
-                    {
-                        Rigidbody2D bhTransform = hit.collider.GetComponentInParent<Rigidbody2D>();
-                        bhTransform.position = mousePosition;
-                    }
-                }
-            }
+            // Remove last black hole
 
             if (Input.GetKey(KeyCode.LeftControl))
             {
@@ -96,6 +85,22 @@ public class InputManager : MonoBehaviour
                         Destroy(_blackHoleList[_blackHoleList.Count - 1].gameObject);
                         _blackHoleList.RemoveAt(_blackHoleList.Count - 1);
                         GameEvents.instance.BlackHoleRemoved(_blackHoleList.Count);
+                    }
+                }
+            }
+
+            // Move black hole
+
+            if (Input.GetMouseButton(1))
+            {
+                RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+
+                if (hit.collider != null)
+                {
+                    if (hit.collider.tag == "BlackHole")
+                    {
+                        Rigidbody2D bhTransform = hit.collider.GetComponentInParent<Rigidbody2D>();
+                        bhTransform.position = mousePosition;
                     }
                 }
             }

@@ -48,7 +48,7 @@ public class BlackHoleManager : MonoBehaviour
     {
         foreach (BlackHole bh in _blackHoleList)
         {
-            bh.UpdatePlayer();
+            bh.UpdateBlackHole();
         }
     }
 }
