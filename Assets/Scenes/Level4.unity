@@ -240,7 +240,7 @@ MonoBehaviour:
   _levelBorders: {x: 0, y: 0}
   _parHoleNumber: 1
   _startVelocity:
-    _direction: {x: 5, y: -5}
+    _direction: {x: 1, y: 0}
     _magnitude: 50
 --- !u!4 &621632807
 Transform:
@@ -293,7 +293,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4741158358414947259, guid: 7bc35dd40d857c4429b333165b93ef20, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4741158358414947259, guid: 7bc35dd40d857c4429b333165b93ef20, type: 3}
       propertyPath: m_LocalPosition.z
@@ -454,8 +454,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1764349456}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.33, y: 2.71, z: 0}
-  m_LocalScale: {x: 1.1177666, y: 4.5112624, z: 1}
+  m_LocalPosition: {x: -3.5955, y: 0.44, z: 0}
+  m_LocalScale: {x: 10.468452, y: 0.78248215, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
@@ -600,11 +600,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8524129327037741062, guid: 7ea04eaa0cf1c2a4aa22ccc92a9e5274, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8524129327037741062, guid: 7ea04eaa0cf1c2a4aa22ccc92a9e5274, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3
+      value: -4
       objectReference: {fileID: 0}
     - target: {fileID: 8524129327037741062, guid: 7ea04eaa0cf1c2a4aa22ccc92a9e5274, type: 3}
       propertyPath: m_LocalPosition.z
