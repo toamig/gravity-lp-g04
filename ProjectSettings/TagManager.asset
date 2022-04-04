@@ -45,12 +45,12 @@ TagManager:
   - name: Background
     uniqueID: 185298631
     locked: 0
-  - name: New Layer
+  - name: Trajectory
     uniqueID: 853158171
     locked: 0
   - name: Objects
     uniqueID: 436287831
     locked: 0
-  - name: New Layer
-    uniqueID: 1502831519
+  - name: VFX
+    uniqueID: 3237540871
     locked: 0
