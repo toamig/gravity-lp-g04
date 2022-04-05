@@ -2,17 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using System.Linq;
 
 public class InputManager : MonoBehaviour
 {
     private List<BlackHole> _blackHoleList;
 
-    private BlackHole _lastBlackHole;
+    private bool _placedBlackHole;
 
+    private Camera _mainCamera;
 
     private void Awake()
     {
-        
+        _placedBlackHole = false;
+        _mainCamera = Camera.main;
     }
 
     private void Start()
@@ -22,6 +25,10 @@ public class InputManager : MonoBehaviour
 
     void Update()
     {
+        Vector3 mousePosition = _mainCamera.ScreenToWorldPoint(Input.mousePosition);
+
+        Debug.Log("Mouse Position: " + mousePosition);
+
         // Player launch
 
         if (Input.GetKeyDown(KeyCode.Space))
@@ -40,38 +47,51 @@ public class InputManager : MonoBehaviour
 
         if (!GameManager.instance.levelStarted)
         {
-            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
             if (Input.GetMouseButtonDown(0))
             {
                 if (_blackHoleList.Count < GameManager.instance.levelManager.blackHoleNumber)
                 {
-                    _lastBlackHole = PlaceBlackHole(mousePosition);
-                    _blackHoleList.Add(_lastBlackHole);
-                    GameEvents.instance.BlackHolePlaced(_blackHoleList.Count);
+                    RaycastHit2D[] hits = Physics2D.RaycastAll(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+
+                    if (hits.Length > 0)
+                    {
+                        if (hits.Count(i => i.collider.name != "Range") > 0)
+                        {
+                            Debug.Log("You can't place a black hole here!");
+                        }
+                        else
+                        {
+                            PlaceBlackHole(mousePosition);
+                        }
+                    }
+                    else
+                    {
+                        PlaceBlackHole(mousePosition);
+                    }
                 }
                 else
                 {
-                    _lastBlackHole = null;
                     Debug.Log("You can't place more black holes!");
                 }
             }
 
             if (Input.GetMouseButton(0))
             {
-                if (_lastBlackHole != null)
+                if (_placedBlackHole)
                 {
-                    Vector3 mousePos3 = mousePosition;
-                    float mouseDiff = (_lastBlackHole.transform.position - mousePos3).magnitude;
+                    BlackHole lastBlackHole = _blackHoleList[_blackHoleList.Count - 1];
+
+                    float mouseDiff = (lastBlackHole.transform.position - mousePosition).magnitude;
                     float scale = Mathf.Min(mouseDiff, BlackHole.maxScale);
                     scale = Mathf.Max(scale, BlackHole.minScale);
-                    _lastBlackHole.transform.localScale = Vector3.one * scale;
+                    lastBlackHole.transform.localScale = Vector3.one * scale;
                 }
             }
 
             if (Input.GetMouseButtonUp(0))
             {
-                _lastBlackHole = null;
+                _placedBlackHole = false;
             }
 
             // Remove last black hole
@@ -108,19 +128,38 @@ public class InputManager : MonoBehaviour
 
         // Camera control
 
-        Camera.main.orthographicSize -= Input.GetAxis("Mouse ScrollWheel") * 2;
-        Camera.main.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize, 5, 10);
+        _mainCamera.orthographicSize -= Input.GetAxis("Mouse ScrollWheel") * 2;
+        _mainCamera.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize, 5, 10);
 
+        Vector3 dragOrigin = Vector3.zero;
+
+        if (Input.GetMouseButtonDown(2))
+        {
+            dragOrigin = mousePosition;
+        }
+
+        if (Input.GetMouseButton(2))
+        {
+            Vector3 diff = dragOrigin - mousePosition;
+
+            Debug.Log("Drag Origin: " + dragOrigin);
+            Debug.Log("Difference: " + diff);
+
+            _mainCamera.transform.position += diff;
+
+        }
     }
 
 
-    BlackHole PlaceBlackHole(Vector2 position)
+    void PlaceBlackHole(Vector2 position)
     {
         GameObject blackHolePrefab = GameManager.instance.blackHoleManager.blackHolePrefab;
 
         GameObject bh = Instantiate(blackHolePrefab, position, Quaternion.identity);
         bh.transform.localScale = Vector3.one * BlackHole.minScale;
         DontDestroyOnLoad(bh);
-        return bh.GetComponent<BlackHole>();
+        _blackHoleList.Add(bh.GetComponent<BlackHole>());
+        _placedBlackHole = true;
+        GameEvents.instance.BlackHolePlaced(_blackHoleList.Count);
     }
 }
