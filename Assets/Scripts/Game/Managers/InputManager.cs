@@ -30,8 +30,6 @@ public class InputManager : MonoBehaviour
         Vector2 mousePosition = _mainCamera.ScreenToWorldPoint(Input.mousePosition);
         Vector3 mousePosition3 = mousePosition;
 
-        //Debug.Log("Mouse Position: " + mousePosition);
-
         // Player launch
 
         if (Input.GetKeyDown(KeyCode.Space))
