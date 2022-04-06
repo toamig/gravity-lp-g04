@@ -18,6 +18,9 @@ public class InputManager : MonoBehaviour
     {
         _placedBlackHole = false;
         _mainCamera = Camera.main;
+
+        GameEvents.instance.OnSceneChanged += UpdateCamera;
+        GameEvents.instance.OnSceneRealoaded += UpdateCamera;
     }
 
     private void Start()
@@ -53,7 +56,7 @@ public class InputManager : MonoBehaviour
             {
                 if (_blackHoleList.Count < GameManager.instance.levelManager.blackHoleNumber)
                 {
-                    RaycastHit2D[] hits = Physics2D.RaycastAll(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+                    RaycastHit2D[] hits = Physics2D.RaycastAll(_mainCamera.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
 
                     if (hits.Length > 0)
                     {
@@ -114,7 +117,7 @@ public class InputManager : MonoBehaviour
 
             if (Input.GetMouseButton(1))
             {
-                RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+                RaycastHit2D hit = Physics2D.Raycast(_mainCamera.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
 
                 if (hit.collider != null)
                 {
@@ -130,25 +133,25 @@ public class InputManager : MonoBehaviour
         // Camera control
 
         _mainCamera.orthographicSize -= Input.GetAxis("Mouse ScrollWheel") * 2;
-        _mainCamera.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize, 5, 10);
+        _mainCamera.orthographicSize = Mathf.Clamp(_mainCamera.orthographicSize, 5, 10);
 
         if (Input.GetMouseButtonDown(2))
         {
-            dragOrigin = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            dragOrigin = _mainCamera.ScreenToWorldPoint(Input.mousePosition);
         }
 
         if (Input.GetMouseButton(2))
         {
-            Vector3 diff = dragOrigin - Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector3 diff = dragOrigin - _mainCamera.ScreenToWorldPoint(Input.mousePosition);
 
-            Vector3 targetPos = Camera.main.transform.position + diff;
+            Vector3 targetPos = _mainCamera.transform.position + diff;
 
             float camX = Mathf.Clamp(targetPos.x, -GameManager.instance.levelManager.levelBorders.x / 2, GameManager.instance.levelManager.levelBorders.x / 2);
             float camY = Mathf.Clamp(targetPos.y, -GameManager.instance.levelManager.levelBorders.y / 2, GameManager.instance.levelManager.levelBorders.y / 2);
 
             Vector3 finalPos = new Vector3(camX, camY, targetPos.z);
 
-            Camera.main.transform.position = finalPos;
+            _mainCamera.transform.position = finalPos;
         }
     }
 
@@ -163,5 +166,16 @@ public class InputManager : MonoBehaviour
         _blackHoleList.Add(bh.GetComponent<BlackHole>());
         _placedBlackHole = true;
         GameEvents.instance.BlackHolePlaced(_blackHoleList.Count);
+    }
+
+    void UpdateCamera()
+    {
+        _mainCamera = Camera.main;
+    }
+
+    private void OnDestroy()
+    {
+        GameEvents.instance.OnSceneChanged -= UpdateCamera;
+        GameEvents.instance.OnSceneRealoaded -= UpdateCamera;
     }
 }
