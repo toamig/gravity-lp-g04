@@ -6,11 +6,17 @@ using UnityEngine.SceneManagement;
 public class Player : MonoBehaviour
 {
     private bool _playerLaunched;
+    private bool _playerDying;
+    private float _deathTravel;
+    private Vector3 _deathPosition;
+    private Vector3 _killerHolePosition;
+    private Color _currentColor;
 
     private void Awake()
     {
         GameEvents.instance.OnPlayerLaunched += LaunchPlayer;
         GameEvents.instance.OnPlayerDeath += KillPlayer;
+        _playerLaunched = false;
         _playerLaunched = false;
     }
 
@@ -18,8 +24,24 @@ public class Player : MonoBehaviour
     {
         Rigidbody2D rb2d = GetComponent<Rigidbody2D>();
         Vector3 vel = rb2d.velocity;
-        float lookAngle = Vector3.SignedAngle(Vector3.right, vel, Vector3.forward);
-        rb2d.SetRotation(lookAngle);
+        Transform transform = GetComponent<Transform>();
+        SpriteRenderer spr = GetComponent<SpriteRenderer>();
+        if (_playerDying)
+        {
+            vel *= 0.0f;
+            _deathTravel = Mathf.Clamp(_deathTravel, 0.0f, 0.99f);
+            transform.Rotate(0, 0, 500 * Time.deltaTime * _deathTravel);
+            transform.position = Vector3.Lerp(_deathPosition, _killerHolePosition, _deathTravel);
+            _deathTravel += 0.6f * Time.deltaTime;
+            _currentColor = spr.color;
+            _currentColor.a = 1 - _deathTravel;
+            spr.color = _currentColor;
+        }
+        else
+        {
+            float lookAngle = Vector3.SignedAngle(Vector3.right, vel, Vector3.forward);
+            rb2d.SetRotation(lookAngle);
+        }
     }
 
     void LaunchPlayer()
@@ -35,9 +57,10 @@ public class Player : MonoBehaviour
     void KillPlayer()
     {
         Rigidbody2D rb2d = GetComponent<Rigidbody2D>();
-        rb2d.velocity = Vector2.zero;
-        rb2d.AddTorque(100);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
+        _playerDying = true;
+        rb2d.isKinematic = true;
+        _deathTravel = 0;
+        _deathPosition = GetComponent<Transform>().position;
     }
 
 
@@ -46,6 +69,7 @@ public class Player : MonoBehaviour
         if (collision.gameObject.name == "Center" && collision.gameObject.tag == "BlackHole")
         {
             GameEvents.instance.PlayerDeath();
+            _killerHolePosition = collision.gameObject.GetComponentInParent<Transform>().position;
         }
     }
 
