@@ -12,6 +12,8 @@ public class InputManager : MonoBehaviour
 
     private Camera _mainCamera;
 
+    private Vector3 dragOrigin;
+
     private void Awake()
     {
         _placedBlackHole = false;
@@ -25,7 +27,8 @@ public class InputManager : MonoBehaviour
 
     void Update()
     {
-        Vector3 mousePosition = _mainCamera.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 mousePosition = _mainCamera.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 mousePosition3 = mousePosition;
 
         Debug.Log("Mouse Position: " + mousePosition);
 
@@ -82,7 +85,7 @@ public class InputManager : MonoBehaviour
                 {
                     BlackHole lastBlackHole = _blackHoleList[_blackHoleList.Count - 1];
 
-                    float mouseDiff = (lastBlackHole.transform.position - mousePosition).magnitude;
+                    float mouseDiff = (lastBlackHole.transform.position - mousePosition3).magnitude;
                     float scale = Mathf.Min(mouseDiff, BlackHole.maxScale);
                     scale = Mathf.Max(scale, BlackHole.minScale);
                     lastBlackHole.transform.localScale = Vector3.one * scale;
@@ -131,22 +134,23 @@ public class InputManager : MonoBehaviour
         _mainCamera.orthographicSize -= Input.GetAxis("Mouse ScrollWheel") * 2;
         _mainCamera.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize, 5, 10);
 
-        Vector3 dragOrigin = Vector3.zero;
-
         if (Input.GetMouseButtonDown(2))
         {
-            dragOrigin = mousePosition;
+            dragOrigin = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         }
 
         if (Input.GetMouseButton(2))
         {
-            Vector3 diff = dragOrigin - mousePosition;
+            Vector3 diff = dragOrigin - Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-            Debug.Log("Drag Origin: " + dragOrigin);
-            Debug.Log("Difference: " + diff);
+            Vector3 targetPos = Camera.main.transform.position + diff;
 
-            _mainCamera.transform.position += diff;
+            float camX = Mathf.Clamp(targetPos.x, -GameManager.instance.levelManager.levelBorders.x / 2, GameManager.instance.levelManager.levelBorders.x / 2);
+            float camY = Mathf.Clamp(targetPos.y, -GameManager.instance.levelManager.levelBorders.y / 2, GameManager.instance.levelManager.levelBorders.y / 2);
 
+            Vector3 finalPos = new Vector3(camX, camY, targetPos.z);
+
+            Camera.main.transform.position = finalPos;
         }
     }
 
