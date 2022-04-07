@@ -237,7 +237,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _blackHoleNumber: 5
   _levelBorders: {x: 0, y: 0}
-  _parHoleNumber: 1
+  _parHoleNumber: 3
   _startVelocity:
     _direction: {x: 1, y: 0}
     _magnitude: 50
