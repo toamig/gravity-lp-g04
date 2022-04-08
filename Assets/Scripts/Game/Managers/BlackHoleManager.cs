@@ -40,9 +40,10 @@ public class BlackHoleManager : MonoBehaviour
     {
         foreach (BlackHole bh in _blackHoleList)
         {
-            DestroyImmediate(bh.gameObject);
+            Destroy(bh.gameObject);
+
         }
-        _blackHoleList = new List<BlackHole>();
+        _blackHoleList.Clear();
 
         Debug.Log("OLA");
     }

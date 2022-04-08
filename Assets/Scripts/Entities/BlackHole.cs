@@ -84,5 +84,7 @@ public class BlackHole : MonoBehaviour
     {
         _isPlayerInside = false;
         _player = GameManager.instance.player;
+
+        Debug.Log("UPDATE BH");
     }
 }

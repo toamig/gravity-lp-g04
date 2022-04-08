@@ -170,5 +170,6 @@ public class InputManager : MonoBehaviour
         _mainCamera = Camera.main;
         Debug.Log(_mainCamera);
         Debug.Log(Camera.main);
+        _blackHoleList = GameManager.instance.blackHoleManager.blackHoleList;
     }
 }
