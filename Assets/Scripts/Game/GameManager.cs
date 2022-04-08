@@ -70,17 +70,15 @@ public class GameManager : MonoBehaviour
         {
             Instantiate(UI);
             InitializeManagers();
-            _levelManager = GameObject.FindObjectOfType<LevelManager>();
         }
 
         if (scene.buildIndex != _currentLevel)
         {
-            _blackHoleManager.ResetBlackHoles();
-            GameEvents.instance.SceneChanged();
+            NextLevel();
         }
         else
         {
-            GameEvents.instance.SceneReloaded();
+            RestartLevel();
         }
 
         _currentLevel = scene.buildIndex;
@@ -89,7 +87,20 @@ public class GameManager : MonoBehaviour
     void InitializeManagers()
     {
         _player = GameObject.FindObjectOfType<Player>();
-        _inputManager = GameObject.FindObjectOfType<InputManager>();
-        _blackHoleManager = GameObject.FindObjectOfType<BlackHoleManager>();
+        _inputManager = GetComponent<InputManager>();
+        _blackHoleManager = GetComponent<BlackHoleManager>();
+        _levelManager = GameObject.FindObjectOfType<LevelManager>();
+    }
+
+    void NextLevel()
+    {
+        _inputManager.UpdateReferences();
+        _blackHoleManager.ResetBlackHoles();
+    }
+
+    void RestartLevel()
+    {
+        _blackHoleManager.UpdateBlackHoles();
+        _inputManager.UpdateReferences();
     }
 }

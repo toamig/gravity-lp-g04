@@ -19,8 +19,6 @@ public class BlackHoleManager : MonoBehaviour
     private void Awake()
     {
         _blackHoleList = new List<BlackHole>();
-        GameEvents.instance.OnSceneChanged += ResetBlackHoles;
-        GameEvents.instance.OnSceneRealoaded += UpdateBlackHoles;
     }
     
     // Start is called before the first frame update
@@ -32,19 +30,24 @@ public class BlackHoleManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            Debug.Log("BHs: " + _blackHoleList.Count);
+        }
     }
 
     public void ResetBlackHoles()
     {
         foreach (BlackHole bh in _blackHoleList)
         {
-            Destroy(bh.gameObject);
+            DestroyImmediate(bh.gameObject);
         }
         _blackHoleList = new List<BlackHole>();
+
+        Debug.Log("OLA");
     }
 
-    private void UpdateBlackHoles()
+    public void UpdateBlackHoles()
     {
         foreach (BlackHole bh in _blackHoleList)
         {
