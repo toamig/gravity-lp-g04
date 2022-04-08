@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: BlackHole
+  m_Shader: {fileID: -6465566751694194690, guid: 77fde4d5651e60d448cf23640a3b9fd9, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 2
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - Texture2D_c918493a965c439f9f8e8669d45a5eac:
+        m_Texture: {fileID: 8400000, guid: bf219b9d48dff3142b96654b0af944ac, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_549c21ecd35647c58be13ff3a351f134_Texture_1:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Vector1_48e406bfeaf84c4aa9d6c83fbfb92fd8: 1
+    - _Distance: 50
+    - _Rad: 0.91
+    m_Colors:
+    - Color_5e8944fd24ce4b55a04b81ace0378f64: {r: 1, g: 1, b: 1, a: 1}
+    - Vector2_2d22f5c1d9ce4635b6adda569d010746: {r: 1, g: 1, b: 0, a: 0}
+    - _Position: {r: 0.5, g: 0.5, b: 0, a: 0}
+    - _Ratio: {r: 1, g: 1, b: 0, a: 0}
+  m_BuildTextureStacks: []
