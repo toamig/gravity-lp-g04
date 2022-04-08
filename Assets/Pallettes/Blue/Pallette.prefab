@@ -263,7 +263,7 @@ GameObject:
   - component: {fileID: 7186044788874430702}
   - component: {fileID: 7823425819818459940}
   m_Layer: 31
-  m_Name: SpacePallette
+  m_Name: Pallette
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
